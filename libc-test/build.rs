@@ -54,6 +54,13 @@ fn main() {
         cfg.define("in_port_t", Some("uint16_t"));
     }
 
+    if uclibc {
+        // cfg.header("utmpx.h");
+        // cfg.header("asm/termbits.h");
+        // cfg.header("linux/resource.h");
+        cfg.flag("-Wno-return-type");
+    }
+
     cfg.header("errno.h")
         .header("fcntl.h")
         .header("limits.h")
@@ -109,7 +116,7 @@ fn main() {
         cfg.header("sys/mman.h");
         cfg.header("sys/resource.h");
         cfg.header("sys/socket.h");
-        if linux && !musl {
+        if linux && !(musl || uclibc) {
             cfg.header("linux/if.h");
             cfg.header("sys/auxv.h");
         }
@@ -283,7 +290,6 @@ fn main() {
 
     if linux || android {
         cfg.header("sys/fsuid.h");
-        cfg.header("linux/module.h");
         cfg.header("linux/seccomp.h");
         cfg.header("linux/if_ether.h");
         cfg.header("linux/if_tun.h");
@@ -293,7 +299,8 @@ fn main() {
             cfg.header("linux/dccp.h");
         }
 
-        if !musl || mips {
+        if !(musl || uclibc) || mips {
+            cfg.header("linux/module.h");
             cfg.header("linux/memfd.h");
         }
     }
@@ -945,7 +952,7 @@ fn main() {
         }
         if !musl {
             cfg.header("net/if.h");
-            cfg.header("linux/if.h");
+            // cfg.header("linux/if.h");
         }
         cfg.header("linux/quota.h");
         cfg.header("asm/termbits.h");
