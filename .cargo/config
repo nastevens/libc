@@ -1,0 +1,20 @@
+[target.arm-unknown-linux-uclibc]
+
+# C compiler to be used to compiler C code. Note that the
+# default value is platform specific, and if not specified it may also depend on
+# what platform is crossing to what platform.
+#cc = ["arm-openwrt-linux-uclibcgnueabi-gcc"]
+
+# C++ compiler to be used to compiler C++ code (e.g. LLVM and our LLVM shims).
+# This is only used for host targets.
+#cxx = "arm-openwrt-linux-uclibcgnueabi-g++"
+
+# Archiver to be used to assemble static libraries compiled from C/C++ code.
+# Note: an absolute path should be used, otherwise LLVM build will break.
+#ar = "arm-openwrt-linux-uclibcgnueabi-ar"
+
+# Linker to be used to link Rust code. Note that the
+# default value is platform specific, and if not specified it may also depend on
+# what platform is crossing to what platform.
+linker = "arm-openwrt-linux-uclibcgnueabi-gcc"
+
